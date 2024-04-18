@@ -13,13 +13,13 @@ const addTodo = asyncHandler(async (req, res) => {
         throw new ApiError(400, "All Fields Are Required.");
     }
 
-    const todo = new Todo({ title, description, userId : req?.user?._id });
+    const todo = new Todo({ title, description, userId: req?.user?._id });
 
     const savedTodo = await todo.save();
 
     return res
         .status(200)
-        .json(ApiResponse(200, savedTodo, "Todo Added Successfully"));
+        .json(new ApiResponse(200, savedTodo, "Todo Added Successfully"));
 });
 
 // Update Todo by _id
@@ -44,7 +44,7 @@ const updateTodo = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(ApiResponse(200, updatedTodo, "Todo Updated Successfully"));
+        .json(new ApiResponse(200, updatedTodo, "Todo Updated Successfully"));
 });
 
 // delete Todo by _id
@@ -59,7 +59,7 @@ const deleteTodo = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(ApiResponse(200, todo, "Todo Deleted Successfully"));
+        .json(new ApiResponse(200, todo, "Todo Deleted Successfully"));
 });
 
 // Get Particular Todo by _id
@@ -74,22 +74,21 @@ const getParticularTodo = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(ApiResponse(200, todo, "Todo Found Successfully"));
+        .json(new ApiResponse(200, todo, "Todo Found Successfully"));
 });
 
 // Get All User Todos
 const getAllUserTodos = asyncHandler(async (req, res) => {
-    const todos = await Todo.find({userId : req?.user?._id});
+    const todos = await Todo.find({ userId: req?.user?._id });
 
-    if(!todos){
+    if (!todos) {
         throw new ApiError(404, "Todos Not Found.");
     }
 
     return res
         .status(200)
-        .json(ApiResponse(200, todos, "Todos Found Successfully"));
+        .json(new ApiResponse(200, todos, "Todos Found Successfully"));
 });
-
 
 module.exports = {
     addTodo,
