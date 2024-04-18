@@ -105,8 +105,6 @@ const generateOtpForSignup = asyncHandler(async (req, res) => {
 const signUpUser = asyncHandler(async (req, res, next) => {
     let { email, otp, password } = req.body;
 
-    
-
     // Checking any field is empty or not
     /* !field checks whether the field is null or undefined.
     If field is not null or undefined, field.trim() === "" checks whether the trimmed value is an empty string.*/
