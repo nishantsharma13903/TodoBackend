@@ -1,6 +1,6 @@
 const express = require('express');
 const verifyUserJWT = require('../middlewares/authUser.middleware.js');
-const { generateOtpForSignup, signUpUser, loginUser, updateUserPassword, generateOtpForForgotPassword, forgotUserPassword, getUserDetails } = require('../controllers/user.model.js');
+const { generateOtpForSignup, signUpUser, loginUser, updateUserPassword, generateOtpForForgotPassword, forgotUserPassword, getUserDetails } = require('../controllers/user.controller.js');
 
 const userRouter = express.Router();
 
