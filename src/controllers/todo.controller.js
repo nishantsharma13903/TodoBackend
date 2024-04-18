@@ -94,7 +94,6 @@ const getAllUserTodos = asyncHandler(async (req, res) => {
 const updateTodoStatus = asyncHandler(async (req, res) => {
     const { todoId } = req.params;
     const { completed } = req.body;
-
     const todo = await Todo.findByIdAndUpdate(
         todoId,
         {
