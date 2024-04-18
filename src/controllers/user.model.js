@@ -103,7 +103,7 @@ const generateOtpForSignup = asyncHandler(async (req, res) => {
 });
 
 const signUpUser = asyncHandler(async (req, res, next) => {
-    let { personName, email, otp, password } = req.body;
+    let { email, otp, password } = req.body;
 
     
 
@@ -114,7 +114,7 @@ const signUpUser = asyncHandler(async (req, res, next) => {
     This method tests whether at least one element in the array passes the test implemented by the provided callback function. It returns a boolean value indicating whether the test succeeded for at least one element.
     */
     if (
-        [personName, email, otp, password].some(
+        [email, otp, password].some(
             (field) => !field || field?.trim() === ""
         )
     ) {
@@ -140,12 +140,8 @@ const signUpUser = asyncHandler(async (req, res, next) => {
     // Verify OTP
     await verifyOtp(otp, email);
 
-    // Creating UserName
-    let userName = personName.slice(0, 5) + email.slice(0, 1) + otp;
-    userName = userName.replace(" ", "").toLowerCase();
-
     // Create User
-    let user = new User({ email, password, personName, userName });
+    let user = new User({ email, password });
     user = await user.save();
 
     if (!user) {
