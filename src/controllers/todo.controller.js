@@ -99,7 +99,7 @@ const updateTodoStatus = asyncHandler(async (req, res) => {
         todoId,
         {
             $set: {
-                status,
+                status : status
             },
         },
         { new: true }
