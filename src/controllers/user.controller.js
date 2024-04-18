@@ -120,6 +120,7 @@ const signUpUser = asyncHandler(async (req, res, next) => {
     }
 
     email = email?.toLowerCase();
+    email = email.trim();
 
     // User Existed
     const isUserExist = await User.findOne({ email });
@@ -172,6 +173,7 @@ const loginUser = asyncHandler(async (req, res) => {
     }
 
     email = email?.toLowerCase();
+    email = email.trim();
 
     // Check User exist or not
     const user = await User.findOne({ email });
@@ -220,7 +222,7 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const updateUserPassword = asyncHandler(async (req, res) => {
-    const { email, oldPassword, newPassword } = req.body;
+    let { email, oldPassword, newPassword } = req.body;
 
     if (
         [email, oldPassword, newPassword].some(
@@ -229,6 +231,9 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     ) {
         throw new ApiError(400, "All Fields Are Required.");
     }
+
+    email = email?.toLowerCase();
+    email = email.trim();
 
     let user = await User.findOne({ email });
     if (!user) {
@@ -265,13 +270,16 @@ const updateUserPassword = asyncHandler(async (req, res) => {
 });
 
 const generateOtpForForgotPassword = asyncHandler(async (req, res) => {
-    const { email } = req.body;
+    let { email } = req.body;
     const { otp, expiry } = getRandomOtp();
 
     // Check email is empty or not
     if (!email) {
         throw new ApiError(400, "Email is required");
     }
+
+    email = email?.toLowerCase();
+    email = email.trim();
 
     // check if user exist or not
     const isUserExist = await User.findOne({ email });
@@ -326,13 +334,16 @@ const generateOtpForForgotPassword = asyncHandler(async (req, res) => {
 });
 
 const forgotUserPassword = asyncHandler(async (req, res) => {
-    const { email, otp, newPassword } = req.body;
+    let { email, otp, newPassword } = req.body;
 
     if (
         [email, newPassword, otp].some((field) => !field || field.trim() === "")
     ) {
         throw new ApiError(400, "All Fields Are Required.");
     }
+
+    email = email?.toLowerCase();
+    email = email.trim();
 
     const user = await User.findOne({ email });
     if (!user) {
