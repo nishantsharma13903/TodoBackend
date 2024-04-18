@@ -158,7 +158,7 @@ const signUpUser = asyncHandler(async (req, res, next) => {
             new ApiResponse(
                 201,
                 { user, accessToken },
-                "User Created Successfully"
+                "User Created Successfully" 
             )
         );
 });
