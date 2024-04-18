@@ -90,10 +90,35 @@ const getAllUserTodos = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, todos, "Todos Found Successfully"));
 });
 
+// Update Todo Status
+const updateTodoStatus = asyncHandler(async (req, res) => {
+    const { todoId } = req.params;
+    const { status } = req.body;
+
+    const todo = await Todo.findByIdAndUpdate(
+        todoId,
+        {
+            $set: {
+                status,
+            },
+        },
+        { new: true }
+    );
+
+    if(!todo){
+        throw new ApiError(404, "Todo Not Found.");
+    }
+
+    return res
+       .status(200)
+       .json(new ApiResponse(200, todo, "Todo Updated Successfully"));
+})
+
 module.exports = {
     addTodo,
     updateTodo,
     deleteTodo,
     getParticularTodo,
     getAllUserTodos,
+    updateTodoStatus,
 };
