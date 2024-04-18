@@ -9,6 +9,6 @@ todoRouter.route('/edit-todo/:todoId').put(verifyUserJWT,updateTodo);
 todoRouter.route('/delete-todo/:todoId').delete(verifyUserJWT,deleteTodo);
 todoRouter.route('/get-todo/:todoId').get(verifyUserJWT,getParticularTodo);
 todoRouter.route('/get-user-todos').get(verifyUserJWT,getAllUserTodos);
-todoRouter.route('/update-todo-status').get(verifyUserJWT,updateTodoStatus);
+todoRouter.route('/update-todo-status').put(verifyUserJWT,updateTodoStatus);
 
 module.exports = todoRouter;
