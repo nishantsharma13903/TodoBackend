@@ -44,7 +44,7 @@ const updateTodo = asyncHandler(async (req, res) => {
 
     return res
         .status(200)
-        .json(new ApiResponse(200, updatedTodo, "Todo Updated Successfully"));
+        .json(new ApiResponse(200, todo, "Todo Updated Successfully"));
 });
 
 // delete Todo by _id
